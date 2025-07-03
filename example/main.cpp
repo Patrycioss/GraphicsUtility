@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include <INSERT_LIBRARY_NAME.hpp>
+#include <graphics_utility.hpp>
 
 int main() {
 	std::cout << "Hello, World!" << std::endl;
