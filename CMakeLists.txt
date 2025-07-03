@@ -15,6 +15,7 @@ FetchContent_MakeAvailable(SDL3)
 
 add_library(${PROJECT_NAME} STATIC
         src/graphics_utility.cpp
+        src/sdl3/sdl3_graphics_utility.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC

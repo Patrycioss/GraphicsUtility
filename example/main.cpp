@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include <graphics_utility.hpp>
+#include <memory>
+#include <sdl3/sdl3_graphics_utility.hpp>
 #include <SDL3/SDL.h>
 
 int main() {
@@ -37,6 +39,8 @@ int main() {
 		return 1;
 	}
 
+	std::unique_ptr<GraphicsUtility> graphicsUtility = std::make_unique<SDL3GraphicsUtility>(gpuDevice, window);
+
 	while (!done) {
 		SDL_Event event;
 
@@ -46,32 +50,9 @@ int main() {
 			}
 		}
 
-		SDL_GPUCommandBuffer* commandBuffer = SDL_AcquireGPUCommandBuffer(gpuDevice);
-		if (commandBuffer == nullptr)
-		{
-			SDL_Log("AcquireGPUCommandBuffer failed: %s", SDL_GetError());
-			return -1;
-		}
-
-		SDL_GPUTexture* swapchainTexture;
-		if (!SDL_WaitAndAcquireGPUSwapchainTexture(commandBuffer, window, &swapchainTexture, nullptr, nullptr)) {
-			SDL_Log("WaitAndAcquireGPUSwapchainTexture failed: %s", SDL_GetError());
-			return -1;
-		}
-
-		if (swapchainTexture != nullptr)
-		{
-			SDL_GPUColorTargetInfo colorTargetInfo = { 0 };
-			colorTargetInfo.texture = swapchainTexture;
-			colorTargetInfo.clear_color = (SDL_FColor){ 0.3f, 0.4f, 0.5f, 1.0f };
-			colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
-			colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
-
-			SDL_GPURenderPass* renderPass = SDL_BeginGPURenderPass(commandBuffer, &colorTargetInfo, 1, nullptr);
-			SDL_EndGPURenderPass(renderPass);
-		}
-
-		SDL_SubmitGPUCommandBuffer(commandBuffer);
+		graphicsUtility->startRendering();
+		graphicsUtility->clear(Colour{255,0,0,255});
+		graphicsUtility->stopRendering();
 	}
 
 	SDL_ReleaseWindowFromGPUDevice(gpuDevice, window);
