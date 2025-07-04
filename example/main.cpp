@@ -39,7 +39,7 @@ int main() {
 		return 1;
 	}
 
-	std::unique_ptr<GraphicsUtility> graphicsUtility = std::make_unique<SDL3GraphicsUtility>(gpuDevice, window);
+	std::unique_ptr<GraphicsUtility> graphicsUtility = std::make_unique<SDL3GraphicsUtility>(SDL3Context{gpuDevice, window});
 
 	while (!done) {
 		SDL_Event event;
