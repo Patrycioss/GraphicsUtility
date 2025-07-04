@@ -51,7 +51,7 @@ int main() {
 		}
 
 		graphicsUtility->startRendering();
-		graphicsUtility->clear(Colour{255,0,0,255});
+		graphicsUtility->clear(Colour{255, 0, 0, 255});
 		graphicsUtility->stopRendering();
 	}
 

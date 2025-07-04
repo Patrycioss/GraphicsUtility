@@ -4,6 +4,8 @@
 
 #include "sdl3_context.hpp"
 #include "triangle/sdl3_triangle_settings.hpp"
+#include "triangle/sdl3_triangle.hpp"
+
 
 class SDL3GraphicsUtility final : public GraphicsUtility {
 public: // Properties
@@ -30,4 +32,5 @@ public: // Public Functions
 	void stopRendering() override;
 
 private: // Private Methods
+	void init();
 };

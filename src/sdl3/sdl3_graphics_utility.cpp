@@ -4,10 +4,12 @@
 
 SDL3GraphicsUtility::SDL3GraphicsUtility(const SDL3Context context, SDL3TriangleSettings triangleSettings): GraphicsUtility(), context(context),
 	triangleSettings(std::move(triangleSettings)) {
+	init();
 }
 
 SDL3GraphicsUtility::SDL3GraphicsUtility(const SDL3Context context)
 	: context(context), triangleSettings({"triangle.vert", "fragment.frag"}) {
+	init();
 }
 
 SDL3GraphicsUtility::~SDL3GraphicsUtility() = default;
@@ -38,4 +40,8 @@ void SDL3GraphicsUtility::startRendering() {
 
 void SDL3GraphicsUtility::stopRendering() {
 	SDL_SubmitGPUCommandBuffer(commandBuffer);
+}
+
+void SDL3GraphicsUtility::init() {
+	SDL3Triangle::Init(context, triangleSettings);
 }
